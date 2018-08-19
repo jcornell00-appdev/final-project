@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @like.present? %>
+  <% if @like.errors.any? %>
+    <% @like.errors.full_messages.each do |message| %>
+      <div class="alert alert-danger">
+        <%= message %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h1>
+  Add a new like
+</h1>
+
+<hr>
+
+<form action="/create_like" method="post">
+  <!-- Label and input for user_id -->
+  <div class="form-group">
+    <label for="user_id">
+      User
+    </label>
+
+    <input type="text" id="user_id" name="user_id" class="form-control" value="<%= @like.try(:user_id) %>">
+  </div>
+
+  <!-- Label and input for place_id -->
+  <div class="form-group">
+    <label for="place_id">
+      Place
+    </label>
+
+    <input type="text" id="place_id" name="place_id" class="form-control" value="<%= @like.try(:place_id) %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Create like
+  </button>
+</form>
+
+<hr>
+
+<a href="/likes">
+  Go back
+</a>

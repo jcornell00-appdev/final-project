@@ -1,0 +1,110 @@
+<h1>
+  All places
+</h1>
+
+<a href="/places/new">
+  Add a new place
+</a>
+
+<a href="/users/sign_out">
+  Sign out
+</a>
+
+<hr>
+
+<table class="table">
+  <tr>
+    <th>
+      ID
+    </th>
+
+    <th>
+      Name
+    </th>
+
+    <th>
+      Address
+    </th>
+
+    <th>
+      Description
+    </th>
+
+    <th>
+      Lat
+    </th>
+
+    <th>
+      Lng
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+    <th>
+      City
+    </th>
+
+    <th>
+      Created at
+    </th>
+
+    <th>
+      Updated at
+    </th>
+
+    <th>
+    </th>
+  </tr>
+
+  <% @places.each do |place| %>
+  <tr>
+    <td>
+      <%= place.id %>
+    </td>
+
+    <td>
+      <%= place.name %>
+    </td>
+
+    <td>
+      <%= place.address %>
+    </td>
+
+    <td>
+      <%= place.description %>
+    </td>
+
+    <td>
+      <%= place.lat %>
+    </td>
+
+    <td>
+      <%= place.lng %>
+    </td>
+
+    <td>
+      <%= place.owner_id %>
+    </td>
+
+    <td>
+      <%= place.city %>
+    </td>
+
+    <td>
+      <%= time_ago_in_words(place.created_at) %> ago
+    </td>
+
+    <td>
+      <%= time_ago_in_words(place.updated_at) %> ago
+    </td>
+
+    <td>
+      <a href="/places/<%= place.id %>">
+        Show details
+      </a>
+    </td>
+  </tr>
+  <% end %>
+</table>

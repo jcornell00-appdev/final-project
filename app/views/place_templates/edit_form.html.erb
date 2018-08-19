@@ -1,0 +1,89 @@
+<!-- Validation failure messages -->
+<% if @place.errors.any? %>
+  <% @place.errors.full_messages.each do |message| %>
+    <div class="alert">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<h1>
+  Edit place #<%= @place.id %>
+</h1>
+
+<hr>
+
+<form action="/update_place/<%= @place.id %>" method="post">
+  <!-- Label and input for name -->
+  <div class="form-group">
+    <label for="name">
+      Name
+    </label>
+
+    <input type="text" id="name" name="name" class="form-control" value="<%= @place.name %>">
+  </div>
+
+  <!-- Label and input for address -->
+  <div class="form-group">
+    <label for="address">
+      Address
+    </label>
+
+    <input type="text" id="address" name="address" class="form-control" value="<%= @place.address %>">
+  </div>
+
+  <!-- Label and input for description -->
+  <div class="form-group">
+    <label for="description">
+      Description
+    </label>
+
+    <textarea id="description" name="description" class="form-control" rows="3"><%= @place.description %></textarea>
+  </div>
+
+  <!-- Label and input for lat -->
+  <div class="form-group">
+    <label for="lat">
+      Lat
+    </label>
+
+    <input type="text" id="lat" name="lat" class="form-control" value="<%= @place.lat %>">
+  </div>
+
+  <!-- Label and input for lng -->
+  <div class="form-group">
+    <label for="lng">
+      Lng
+    </label>
+
+    <input type="text" id="lng" name="lng" class="form-control" value="<%= @place.lng %>">
+  </div>
+
+  <!-- Label and input for owner_id -->
+  <div class="form-group">
+    <label for="owner_id">
+      Owner
+    </label>
+
+    <input type="text" id="owner_id" name="owner_id" class="form-control" value="<%= @place.owner_id %>">
+  </div>
+
+  <!-- Label and input for city -->
+  <div class="form-group">
+    <label for="city">
+      City
+    </label>
+
+    <input type="text" id="city" name="city" class="form-control" value="<%= @place.city %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Update place
+  </button>
+</form>
+
+<hr>
+
+<a href="/places">
+  Go back
+</a>

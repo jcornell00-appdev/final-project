@@ -1,0 +1,84 @@
+<h1>
+  Place #<%= @place.id %> details
+</h1>
+
+<a href="/places/<%= @place.id %>/edit">
+  Edit place
+</a>
+
+<hr>
+
+<dl>
+  <dt>
+    Name
+  </dt>
+  <dd>
+    <%= @place.name %>
+  </dd>
+
+  <dt>
+    Address
+  </dt>
+  <dd>
+    <%= @place.address %>
+  </dd>
+
+  <dt>
+    Description
+  </dt>
+  <dd>
+    <%= @place.description %>
+  </dd>
+
+  <dt>
+    Lat
+  </dt>
+  <dd>
+    <%= @place.lat %>
+  </dd>
+
+  <dt>
+    Lng
+  </dt>
+  <dd>
+    <%= @place.lng %>
+  </dd>
+
+  <dt>
+    Owner
+  </dt>
+  <dd>
+    <%= @place.owner_id %>
+  </dd>
+
+  <dt>
+    City
+  </dt>
+  <dd>
+    <%= @place.city %>
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@place.created_at) %> ago
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@place.updated_at) %> ago
+  </dd>
+</dl>
+
+<a href="/delete_place/<%= @place.id %>">
+  Delete place
+</a>
+
+<hr>
+
+<a href="/places">
+  Go back
+</a>

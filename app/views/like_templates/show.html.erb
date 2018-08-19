@@ -1,0 +1,49 @@
+<h1>
+  Like #<%= @like.id %> details
+</h1>
+
+<a href="/likes/<%= @like.id %>/edit">
+  Edit like
+</a>
+
+<hr>
+
+<dl>
+  <dt>
+    User
+  </dt>
+  <dd>
+    <%= @like.user_id %>
+  </dd>
+
+  <dt>
+    Place
+  </dt>
+  <dd>
+    <%= @like.place_id %>
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@like.created_at) %> ago
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@like.updated_at) %> ago
+  </dd>
+</dl>
+
+<a href="/delete_like/<%= @like.id %>">
+  Delete like
+</a>
+
+<hr>
+
+<a href="/likes">
+  Go back
+</a>
