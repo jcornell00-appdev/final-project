@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   
+  devise_for :users
+  root "places#index"
+  
+  
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  
   # Routes for the Like resource:
 
   # CREATE
@@ -57,11 +66,17 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  devise_for :users
-  root "places#index"
-  
-  
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # Routes for the Users resource:
+
+  # READ
+  get("/users", { :controller => "users", :action => "index" })
+  get("/users/:id_to_display", { :controller => "users", :action => "show" })
+
+
+  #------------------------------
+
+
+
+
+
 end
