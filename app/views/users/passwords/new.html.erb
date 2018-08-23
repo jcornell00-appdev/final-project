@@ -1,4 +1,10 @@
-<h2>Forgot your password?</h2>
+
+<div class="card text-center  offset-md-5" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Forgot your password?</h5>
+
+
+
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
@@ -9,8 +15,10 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "Send password reset instructions" %>
   </div>
 <% end %>
 
 <%= render "users/shared/links" %>
+</div>
+</div>

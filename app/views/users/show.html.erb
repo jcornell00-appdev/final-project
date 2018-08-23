@@ -1,61 +1,192 @@
-<h1>
-  User #<%= @user.id %> details
-</h1>
 
-<form action="/create_follow_request" method="post">
-    <!-- Hidden input for authenticity token to protect from forgery -->
-    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-    
-    <input type="text" id="sender_id" name="sender_id" value="<%=current_user.id%>">
-    <input type="text" id="recipient_id" name="recipient_id" value="<%=@user.id%>">
-    
-    
-    <button class="btn btn-default btn-block" >
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+      <h1>
+        <%= @user.username %> details
+      </h1>
+
+
+<table class="table">
+  <tr>
+    <strong>Name</strong>
+    <%= @user.first_name %> <%= @user.last_name %>
+
+    <strong> Member since:</strong>
+
+    <%= time_ago_in_words(@user.created_at) %> ago
+  
+
+<% if current_user.id == @user.id %>
+ <form action="/users/edit" method="get">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+            
+              <button class="btn btn-default">
+                Edit
+              </button>
+            </form>
+
+
+<%else%>
+  <% follow_request = FollowRequest.find_by(:sender_id => current_user.id, :recipient => @user.id) %>
+          <% if follow_request.present? %>
+            <a href="/delete_follow_request/<%= follow_request.id %>" class="btn btn-success">
+              Following
+            </a>
+          <% else %>
+            <form action="/create_follow_request" method="post">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+              <input type="hidden" id="sender_id" name="sender_id" value="<%= current_user.id %>">
+
+              <input type="hidden" id="recipient_id" name="recipient_id" value="<%= @user.id %>">
+
+              <button class="btn btn-default">
                 Follow
               </button>
-</form>
+            </form>
+          <% end %>
+          <% end %>
+</tr>
+  </table>    
+      
+    </div>
+  
+  
+
+    </div>
+    
+   
+    
+    
+    
+    <div class="row">
+        <div class="col-md-6"><table class="table">
+  <tr>
+
+    <th>
+      Name
+    </th>
+
+      <th>
+      City
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+  </tr>
+
+  <% @places.each do |place| %>
+  <tr>
+  
+    <td>
+        <a href="/places/<%= place.id %>">
+          <%= place.name %>
+        </a>
+    </td>
+   
+    <td>
+      <%= place.city %>
+    </td>
+
+   
+    <td>
+        <a href="users/<%= place.owner_id%>">
+      <%= User.find(place.owner_id).username %>
+        </a>
+    </td>
+
+
+    </td>
+  </tr>
+  <% end %>
+</table>
+</div>
+        <div class="col-md-3">
+            
+
+<style>
+#map {
+  width: 600px;
+  height: 450px;
+  
+
+}
+</style>
+
+<div id="map"></div>
+<script>
+function initMap() {
+  // initiate a new map
+  var mapDiv = document.getElementById('map');
+  var map = new google.maps.Map(mapDiv);
+
+  // An empty bounds variable for seeting automatic zoom level (bounds of map)
+  var bounds = new google.maps.LatLngBounds();
+
+  <%  @places.each do |place|   %>
+
+  // Make info window for this place
+  var infowindow_<%= place.id %> = new google.maps.InfoWindow({
+    content: "<b><%= place.name %></b>"  +
+    "<li><%= place.address %> </li>" +
+    "<li><%= place.description %></li> "
+  });
+
+  // Make marker for this place
+  var marker_<%= place.id %> = new google.maps.Marker({
+    position: {lat: <%= place.lat %>, lng: <%= place.lng %>},
+    map: map,
+    title: "<%= place.name %>",
+    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+  });
+
+  // Click to show info window
+  marker_<%= place.id %>.addListener('click', function() {
+    infowindow_<%= place.id %>.open(map, marker_<%= place.id %>);
+  });
+
+  // Rightclick to edit place
+  marker_<%= place.id %>.addListener('rightclick', function() {
+    window.location.href = 'http://localhost:3000/places/<%= place.id %>/edit'
+
+  });
+
+  // Add this marker in map bounds
+  bounds.extend(new google.maps.LatLng(<%= place.lat %>, <%= place.lng %>));
+
+  <% end %>
+
+  // Size map to fit bounds
+  map.fitBounds(bounds);
+};
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+async defer></script>
+
+            
+            
+            
+        </div>
+    </div>
 
 
 
-<hr>
-
-<dl>
-  <dt>
-    Username
-  </dt>
-  <dd>
-    <%= @user.username %>
-  </dd>
-
-  <dt>
-    first_name
-  </dt>
-  <dd>
-    <%= @user.first_name %>
-  </dd>
-
-  <dt>
-    last_name
-  </dt>
-  <dd>
-    <%= @user.last_name %>
-  </dd>
 
 
 
-  <dt>
-    Created at
-  </dt>
-  <dd>
-    <%= time_ago_in_words(@user.created_at) %> ago
-  </dd>
 
-
-</dl>
-
-
-<hr>
 
 <a href="/users">
   Go back
 </a>
+</div>
+</div>

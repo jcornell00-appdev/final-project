@@ -1,17 +1,11 @@
 <div class="container">
-    <div class="row">
-       <div class="col-md-6">
-        <a href="/places/search" class="btn btn-primary">Add new recommendation</a>
-        </div>
-    </div>
+
     
     
     
     
     
     <div class="row">
-       
-      
         <div class="col-md-6"><table class="table">
   <tr>
 
@@ -20,15 +14,8 @@
     </th>
 
       <th>
-      Description
-    </th>
-
-
-
-      <th>
       City
     </th>
-
 
     <th>
       Owner
@@ -36,7 +23,6 @@
 
   </tr>
 
-  
   <% @places.each do |place| %>
   <tr>
   
@@ -45,13 +31,6 @@
           <%= place.name %>
         </a>
     </td>
-   
-   
-   <td>
-      <%= place.description %>
-    </td>
-   
-   
    
     <td>
       <%= place.city %>

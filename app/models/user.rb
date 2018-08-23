@@ -46,4 +46,8 @@ has_many :followers, :through => :received_follow_requests, :source => :sender
 has_many :feed, :through => :following, :source => :own_places
 has_many :liked_places, :through => :likes, :source => :place
 
+ validates :email, uniqueness: true 
+ validates :username, uniqueness: true
+
+
 end

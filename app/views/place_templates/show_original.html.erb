@@ -1,0 +1,113 @@
+<h1>
+  Place #<%= @place.id %> details
+</h1>
+
+<a href="/places/<%= @place.id %>/edit">
+  Edit place
+</a>
+
+    <form action="/create_like" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
+      </div>
+
+      <!-- Label and input for photo_id -->
+      <div class="form-group">
+        <label for="photo_id" class="control-label">
+          Photo
+        </label>
+
+        <input type="text" id="place_id" name="place_id" placeholder="Place" class="form-control" value="<%= @place.id %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Like
+      </button>
+      or
+      <a href="/likes">Cancel</a>
+    </form>
+
+<hr>
+
+<dl>
+  <dt>
+    Name
+  </dt>
+  <dd>
+    <%= @place.name %>
+  </dd>
+
+  <dt>
+    Address
+  </dt>
+  <dd>
+    <%= @place.address %>
+  </dd>
+
+  <dt>
+    Description
+  </dt>
+  <dd>
+    <%= @place.description %>
+  </dd>
+
+  <dt>
+    Lat
+  </dt>
+  <dd>
+    <%= @place.lat %>
+  </dd>
+
+  <dt>
+    Lng
+  </dt>
+  <dd>
+    <%= @place.lng %>
+  </dd>
+
+  <dt>
+    Owner
+  </dt>
+  <dd>
+    <%= @place.owner_id %>
+  </dd>
+
+  <dt>
+    City
+  </dt>
+  <dd>
+    <%= @place.city %>
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@place.created_at) %> ago
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@place.updated_at) %> ago
+  </dd>
+</dl>
+
+<a href="/delete_place/<%= @place.id %>">
+  Delete place
+</a>
+
+<hr>
+
+<a href="/places">
+  Go back
+</a>

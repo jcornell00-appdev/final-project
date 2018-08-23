@@ -24,4 +24,7 @@ has_many :likes, :dependent => :destroy
 has_many :followers, :through => :owner, :source => :following
 has_many :fans, :through => :likes, :source => :user
 
+ validates :address, uniqueness: { scope: :owner_id,
+    message: "You already recommended this" }
+
 end

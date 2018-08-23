@@ -9,83 +9,71 @@
   <% end %>
 <% end %>
 
-<h1>
-  Add a new place
-</h1>
 
-<hr>
-
-<form action="/create_place" method="post">
-  <!-- Hidden input for authenticity token to protect from forgery -->
-  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-  
-  
-  <!-- Label and input for name -->
-  <div class="form-group">
-    <label for="name">
-      Name
-    </label>
-
-    <input type="text" id="name" name="name" class="form-control" value="<%= @place.try(:name) %>">
-  </div>
-
-  <!-- Label and input for address -->
-  <div class="form-group">
-    <label for="address">
-      Address
-    </label>
-
-    <input type="text" id="address" name="address" class="form-control" value="<%= @place.try(:address) %>">
-  </div>
-
-  <!-- Label and input for description -->
-  <div class="form-group">
-    <label for="description">
-      Description
-    </label>
-
-    <textarea id="description" name="description" class="form-control" rows="3"><%= @place.try(:description) %></textarea>
-  </div>
-
-  <!-- Label and input for lat -->
-  <div class="form-group">
-    <label for="lat">
-      Lat
-    </label>
-
-    <input type="text" id="lat" name="lat" class="form-control" value="<%= @place.try(:lat) %>">
-  </div>
-
-  <!-- Label and input for lng -->
-  <div class="form-group">
-    <label for="lng">
-      Lng
-    </label>
-
-    <input type="text" id="lng" name="lng" class="form-control" value="<%= @place.try(:lng) %>">
-  </div>
-
-  <!-- Label and input for owner_id -->
+<div class="container">
+<div class="row">
+        <div class="col-xs-12">
+        Add a new recommendation
+        </div>
+    </div>
 
 
-    <input type="hidden" id="owner_id" name="owner_id" class="form-control" value="<%= current_user.id%>">
 
-  <!-- Label and input for city -->
-  <div class="form-group">
-    <label for="city">
-      City
-    </label>
+ <div class="row">
+        <div class="col-md-6">
+  <div class="card-body">
+    <form action="/places/results.html">
+      <div class="form-group">
+      
+        <label for="city">City</label>
+        <input type="text"  class="form-control"  name="city" id="city">
+      
+        <label for="the_address">Search Term</label>
+        <input type="text"  class="form-control"  name="search_term" id="search_term">
+      
+      
+      
+      </div>
 
-    <input type="text" id="city" name="city" class="form-control" value="<%= @place.try(:city) %>">
-  </div>
-
-  <button class="btn btn-block btn-outline-secondary">
-    Create place
-  </button>
-</form>
-
-<hr>
-
-<a href="/places">
+      <button class="btn btn-outline-info btn-block">
+        Search!
+      </button>
+    </form>
+  </div>  <!-- card-body -->
+  <a href="/places">
   Go back
 </a>
+</div>  <!-- card -->
+
+
+ <div class="col-md-3">
+<style>
+#map {
+  width: 600px;
+  height: 450px;
+  
+
+}
+</style>
+
+<div id="map"></div>
+  <script>
+  function initMap() {
+    var mapDiv = document.getElementById('map');
+    var map = new google.maps.Map(mapDiv, {
+      center: {lat: 37.09024, lng: -95.712891},
+      zoom: 3.5
+    });
+
+  };
+  
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+
+
+</div>
+
+</div>
+
+</div>
+</container>

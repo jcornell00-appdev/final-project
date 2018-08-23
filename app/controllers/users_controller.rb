@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params.fetch("id_to_display"))
+    @places = Place.where({:owner_id => @user.id})
 
     render("users/show.html.erb")
   end

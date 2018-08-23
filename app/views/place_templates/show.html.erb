@@ -1,42 +1,95 @@
-<h1>
-  Place #<%= @place.id %> details
-</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+<style>
+#map {
+  width: 500px;
+  height: 400px;
+}
+</style>
 
-<a href="/places/<%= @place.id %>/edit">
-  Edit place
-</a>
 
-    <form action="/create_like" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+  <div id="map"></div>
+  
+  
+  <script>
+  function initMap() {
+    var mapDiv = document.getElementById('map');
+    var map = new google.maps.Map(mapDiv, {
+      center: {lat: <%= @place.lat%>, lng: <%= @place.lng%>},
+      zoom: 12
+    });
+    
+    
+    var infowindow = new google.maps.InfoWindow({
+      content: "<%= @place.description%>" 
+    });
+    
+    var marker = new google.maps.Marker({
+      position: {lat: <%= @place.lat%>, lng: <%= @place.lng%>}, 
+      map: map,
+      title: '<%= @place.name%>',
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' 
+    });
+    
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+    
+  };
+  
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 
-      <!-- Label and input for user_id -->
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
+ <%if @place.owner_id == current_user.id%>
 
-        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= current_user.id %>">
-      </div>
 
-      <!-- Label and input for photo_id -->
-      <div class="form-group">
-        <label for="photo_id" class="control-label">
-          Photo
-        </label>
 
-        <input type="text" id="place_id" name="place_id" placeholder="Place" class="form-control" value="<%= @place.id %>">
-      </div>
+    <a href="/places/<%=@place.id%>/edit" class="btn btn-success">Edit place</a>
+    <a href="/delete_place/<%=@place.id%>" class="btn btn-success">Delete place</a>
 
-      <button class="btn btn-success">
-        Create Like
-      </button>
-      or
-      <a href="/likes">Cancel</a>
-    </form>
+  
+<%else%>
+ 
+  <% if Like.where(:user_id => current_user.id, :place_id => @place.id).blank?%>
+  <form action="/create_like" method="post">
+    <!-- Hidden input for authenticity token to protect from forgery -->
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-<hr>
+    <input type="hidden" id="user_id" name="user_id" class="form-control" value="<%= current_user.id %>">
 
+
+    <input type="hidden" id="place_id" name="place_id" class="form-control" value="<%= @place.id%>">
+
+
+  <button class="btn btn-default">
+    Add to my list
+  </button>
+</form> 
+
+  <%else%>
+  <% Like.where({:user_id => current_user.id, :place_id => @place.id}).each do |like|%>
+
+    <form action="/delete_like/<%=like.id%>" method="get">
+
+
+  <button class="btn btn-success">
+    Remove from my list
+  </button>
+  <%end%>
+</form> 
+  <%end%>  
+  </div>  
+
+
+
+
+
+<%end%>
+
+</div>
+
+<div  class="col-sm-6">
 <dl>
   <dt>
     Name
@@ -59,19 +112,6 @@
     <%= @place.description %>
   </dd>
 
-  <dt>
-    Lat
-  </dt>
-  <dd>
-    <%= @place.lat %>
-  </dd>
-
-  <dt>
-    Lng
-  </dt>
-  <dd>
-    <%= @place.lng %>
-  </dd>
 
   <dt>
     Owner
@@ -102,12 +142,6 @@
   </dd>
 </dl>
 
-<a href="/delete_place/<%= @place.id %>">
-  Delete place
-</a>
 
-<hr>
-
-<a href="/places">
-  Go back
-</a>
+    </div>
+</div>

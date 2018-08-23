@@ -24,7 +24,7 @@ class FollowRequestsController < ApplicationController
     if @follow_request.valid?
       @follow_request.save
 
-      redirect_to("/follow_requests", :notice => "Follow request created successfully.")
+      redirect_to("/users/#{@follow_request.recipient_id}", :notice => "Follow request created successfully.")
     else
       render("follow_request_templates/new_form.html.erb")
     end
@@ -45,7 +45,7 @@ class FollowRequestsController < ApplicationController
     if @follow_request.valid?
       @follow_request.save
 
-      redirect_to("/follow_requests/#{@follow_request.id}", :notice => "Follow request updated successfully.")
+      redirect_to("/users/#{@follow_request.recipient_id}", :notice => "Follow request updated successfully.")
     else
       render("follow_request_templates/edit_form.html.erb")
     end
@@ -56,6 +56,6 @@ class FollowRequestsController < ApplicationController
 
     @follow_request.destroy
 
-    redirect_to("/follow_requests", :notice => "Follow request deleted successfully.")
+    redirect_to("/users/#{@follow_request.recipient_id}", :notice => "Follow request deleted successfully.")
   end
 end

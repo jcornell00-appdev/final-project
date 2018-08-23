@@ -56,6 +56,13 @@ class LikesController < ApplicationController
 
     @like.destroy
 
-    redirect_to("/likes", :notice => "Like deleted successfully.")
+    redirect_to("/places/#{@like.place_id}", :notice => "Like deleted successfully.")
   end
+
+  def my_likes
+    @places = current_user.liked_places
+    
+    render("like_templates/my_likes.html.erb")
+  end
+
 end

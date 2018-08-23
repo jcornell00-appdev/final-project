@@ -41,11 +41,11 @@
     </td>
 
     <td>
-      <%= follow_request.sender_id %>
+      <%= User.find(follow_request.sender_id).username %>
     </td>
 
     <td>
-      <%= follow_request.recipient_id %>
+      <%= User.find(follow_request.recipient_id).username %>
     </td>
 
     <td>

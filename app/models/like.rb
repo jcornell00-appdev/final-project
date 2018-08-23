@@ -13,4 +13,8 @@ class Like < ApplicationRecord
 #direct
 belongs_to :user
 belongs_to :place
+
+ validates :place_id, uniqueness: { scope: :user_id,
+    message: "You already like this" }
+
 end

@@ -1,0 +1,54 @@
+<h1>
+  All places
+</h1>
+
+<a href="/places/new">
+  Add a new place
+</a>
+
+
+
+<hr>
+
+<table class="table">
+  <tr>
+
+    <th>
+      Name
+    </th>
+
+      <th>
+      City
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+  </tr>
+
+  <% @places.each do |place| %>
+  <tr>
+  
+    <td>
+      <%= place.name %>
+    </td>
+   
+    <td>
+      <%= place.city %>
+    </td>
+
+   
+    <td>
+      <%= place.owner_id %>
+    </td>
+
+
+    <td>
+      <a href="/places/<%= place.id %>">
+        Show details
+      </a>
+    </td>
+  </tr>
+  <% end %>
+</table>

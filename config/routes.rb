@@ -50,7 +50,8 @@ Rails.application.routes.draw do
   # Routes for the Place resource:
 
   # CREATE
-  get("/places/new", { :controller => "places", :action => "new_form" })
+  get("/places/search", { :controller => "places", :action => "search_form" })
+  get("/places/results", { :controller => "places", :action => "search_results" })
   post("/create_place", { :controller => "places", :action => "create_row" })
 
   # READ
@@ -66,6 +67,7 @@ Rails.application.routes.draw do
 
   #------------------------------
 
+
   # Routes for the Users resource:
 
   # READ
@@ -75,8 +77,8 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-
-
+  get("/my_likes", {:controller => "likes", :action => "my_likes"})
+  get "/feed", :controller => "places", :action => "feed"
 
 
 end
